@@ -5,9 +5,19 @@ import "./App.css";
 
 import Navbar from "./components/Navbar";
 import MainMenu from "./components/MainMenu";
-import ExampleChart from "./components/ExampleChart";
+import StatsComponent from "./components/Stats";
 
-const twits1 = () => <h1>Twits 1</h1>;
+import { twits } from "./api";
+
+const getTwitts = () =>
+  twits.getStats().then(res => console.log(res), err => console.log(err));
+
+const twits1 = () => (
+  <div>
+    <h1>Twits 1</h1>
+    <button onClick={getTwitts}>Get twitts</button>
+  </div>
+);
 
 const twits2 = () => <h1>Twits 2</h1>;
 
@@ -26,7 +36,7 @@ class App extends Component {
                   routes={[
                     { to: "/twits1", label: "Twits 1" },
                     { to: "/twits2", label: "Twits 2" },
-                    { to: "/example", label: "Example chart" }
+                    { to: "/stats", label: "Stats" }
                   ]}
                 />
               </div>
@@ -35,7 +45,7 @@ class App extends Component {
                   <Route path="/" exact component={twits1} />
                   <Route path="/twits1" component={twits1} />
                   <Route path="/twits2" component={twits2} />
-                  <Route path="/example" component={ExampleChart} />
+                  <Route path="/stats" component={StatsComponent} />
                   <Route component={noMatch} />
                 </Switch>
               </div>
