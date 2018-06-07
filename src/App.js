@@ -5,6 +5,7 @@ import "./App.css";
 
 import Navbar from "./components/Navbar";
 import MainMenu from "./components/MainMenu";
+import ExampleChart from "./components/ExampleChart";
 
 const twits1 = () => <h1>Twits 1</h1>;
 
@@ -24,7 +25,8 @@ class App extends Component {
                 <MainMenu
                   routes={[
                     { to: "/twits1", label: "Twits 1" },
-                    { to: "/twits2", label: "Twits 2" }
+                    { to: "/twits2", label: "Twits 2" },
+                    { to: "/example", label: "Example chart" }
                   ]}
                 />
               </div>
@@ -33,6 +35,7 @@ class App extends Component {
                   <Route path="/" exact component={twits1} />
                   <Route path="/twits1" component={twits1} />
                   <Route path="/twits2" component={twits2} />
+                  <Route path="/example" component={ExampleChart} />
                   <Route component={noMatch} />
                 </Switch>
               </div>
