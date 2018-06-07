@@ -1,48 +1,45 @@
 import React, { Component } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Navbar,
-  NavbarBrand,
-  Nav,
-  NavLink,
-  NavItem
-} from "reactstrap";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+
 import "./App.css";
+
+import Navbar from "./components/Navbar";
+import MainMenu from "./components/MainMenu";
+
+const twits1 = () => <h1>Twits 1</h1>;
+
+const twits2 = () => <h1>Twits 2</h1>;
+
+const noMatch = () => <h1>Damn it!</h1>;
 
 class App extends Component {
   render() {
     return (
-      <div>
-        <Navbar color="light" light expand="md">
-          <NavbarBrand>Ninja mongo twits</NavbarBrand>
-        </Navbar>
-        <Container fluid>
-          <Row>
-            <Col md="4">
-              <Nav vertical pills>
-                <NavItem>
-                  <NavLink active href="#" onClick={() => {}}>
-                    Twits
-                  </NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="#">Twits</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink href="#">Other Twits</NavLink>
-                </NavItem>
-                <NavItem>
-                  <NavLink disabled href="#">
-                    Adult Twits
-                  </NavLink>
-                </NavItem>
-              </Nav>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+      <Router>
+        <div>
+          <Navbar />
+          <div className="container-fluid app-container">
+            <div className="row">
+              <div className="col-4">
+                <MainMenu
+                  routes={[
+                    { to: "/twits1", label: "Twits 1" },
+                    { to: "/twits2", label: "Twits 2" }
+                  ]}
+                />
+              </div>
+              <div className="col-8">
+                <Switch>
+                  <Route path="/" exact component={twits1} />
+                  <Route path="/twits1" component={twits1} />
+                  <Route path="/twits2" component={twits2} />
+                  <Route component={noMatch} />
+                </Switch>
+              </div>
+            </div>
+          </div>
+        </div>
+      </Router>
     );
   }
 }
