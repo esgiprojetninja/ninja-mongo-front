@@ -42,10 +42,10 @@ async function generateFetch({
 export default {
   getTwitts: () =>
     generateFetch({
-      url: "twitts/"
+      url: "tweets/"
     }),
   getStats: () =>
     generateFetch({
-      url: "twitts/stats/"
+      url: "tweets/stats/"
     })
 };

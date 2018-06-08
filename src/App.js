@@ -6,11 +6,12 @@ import "./App.css";
 import Navbar from "./components/Navbar";
 import MainMenu from "./components/MainMenu";
 import StatsComponent from "./components/Stats";
+import SpecificStatsComponent from "./components/SpecificStats";
 
 import { twits } from "./api";
 
 const getTwitts = () =>
-  twits.getStats().then(res => console.log(res), err => console.log(err));
+  twits.getTwitts().then(res => console.log(res), err => console.log(err));
 
 const twits1 = () => (
   <div>
@@ -19,9 +20,9 @@ const twits1 = () => (
   </div>
 );
 
-const twits2 = () => <h1>Twits 2</h1>;
+const phpStats = () => <SpecificStatsComponent filter="Php" />;
 
-const noMatch = () => <h1>Damn it!</h1>;
+const jsStats = () => <SpecificStatsComponent filter="Javascript" />;
 
 class App extends Component {
   render() {
@@ -31,22 +32,21 @@ class App extends Component {
           <Navbar />
           <div className="container-fluid app-container">
             <div className="row">
-              <div className="col-4">
+              <div className="col-2">
                 <MainMenu
                   routes={[
-                    { to: "/twits1", label: "Twits 1" },
-                    { to: "/twits2", label: "Twits 2" },
-                    { to: "/stats", label: "Stats" }
+                    { to: "/php", label: "Php" },
+                    { to: "/js", label: "JavaScript" },
+                    { to: "/compared", label: "Compare" }
                   ]}
                 />
               </div>
-              <div className="col-8">
+              <div className="col-10">
                 <Switch>
                   <Route path="/" exact component={twits1} />
-                  <Route path="/twits1" component={twits1} />
-                  <Route path="/twits2" component={twits2} />
-                  <Route path="/stats" component={StatsComponent} />
-                  <Route component={noMatch} />
+                  <Route path="/php" component={phpStats} />
+                  <Route path="/js" component={jsStats} />
+                  <Route path="/compared" component={StatsComponent} />
                 </Switch>
               </div>
             </div>
