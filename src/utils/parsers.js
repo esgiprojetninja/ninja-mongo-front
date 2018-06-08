@@ -40,3 +40,15 @@ export const getPieParsedData = (data, filter) => [
   { name: "Php", value: Math.round(data.Php[filter]) },
   { name: "Javascript", value: Math.round(data.Javascript[filter]) }
 ];
+
+export const getParsedLanguageData = (data, filter) => {
+  const languages = data[filter].tweetsPerLanguage;
+  const parsedData = [];
+  for (let language in languages) {
+    parsedData.push({
+      name: language,
+      value: languages[language]
+    });
+  }
+  return parsedData;
+};

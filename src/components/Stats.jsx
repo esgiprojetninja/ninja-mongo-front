@@ -1,5 +1,5 @@
 import React from "react";
-import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie} from "recharts";
+import {BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, PieChart, Pie, Cell} from "recharts";
 import { twits as twitsApi } from "../api";
 import { getParsedData, getPieParsedData } from "../utils/parsers";
 
@@ -24,7 +24,11 @@ const TwittsPieChart = ({loading, data, filter}) => {
     if (loading) return <p>Loading...</p>;
     return (
         <PieChart width={800} height={400}>
-            <Pie isAnimationActive={false} data={getPieParsedData(data, filter)} fill="#8884d8" label dataKey="value" nameKey="name"/>
+            <Pie isAnimationActive={false} data={getPieParsedData(data, filter)} fill="#8884d8" label dataKey="value" nameKey="name">
+                {
+                    getPieParsedData(data, filter).map(item => <Cell key={item.name} fill={item.name === "Php" ? "#8884d8" : "#82ca9d"} />)
+                }
+            </Pie>
             <Tooltip/>
        </PieChart>
     )

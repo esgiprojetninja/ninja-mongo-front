@@ -1,6 +1,33 @@
 import React from "react";
+import { PieChart, Pie, Tooltip, Cell } from "recharts";
 import { twits as twitsApi } from "../api";
-import { getParsedData } from "../utils/parsers";
+import { getParsedData, getParsedLanguageData } from "../utils/parsers";
+
+const getRandomColor = () => "#"+Math.floor(Math.random()*16777215).toString(16);
+
+
+const LanguagesStats = ({data, filter}) => {
+    const parsedData = getParsedLanguageData(data, filter);
+    return (
+        <PieChart width={800} height={400}>
+            <Pie
+            data={parsedData}
+            cx={300}
+            cy={200}
+            label
+            outerRadius={80}
+            fill="#8884d8"
+            dataKey="value"
+            nameKey="name"
+            >
+                {
+                parsedData.map((entry, index) => <Cell key={entry.name} fill={getRandomColor()}/>)
+            }
+            </Pie>
+            <Tooltip />
+        </PieChart>
+    )
+}
 
 const StatRows = ({data, filter}) => (
         <div className="row">
@@ -36,6 +63,11 @@ export default class SpecificStats extends React.PureComponent {
 
     render() {
         if (this.state.loading) return <p>Loading...</p>;
-        return <StatRows data={this.state.data} filter={this.props.filter} />;
+        return (
+            <div>
+                <StatRows data={this.state.data} filter={this.props.filter} />
+                <LanguagesStats data={this.state.data} filter={this.props.filter} />
+            </div>
+        );
     }
 }
